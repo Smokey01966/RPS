@@ -9,7 +9,6 @@ function calcRandomNumber (max, min = 0){
 }
 
 /* Function getRandomChoice expects no input randomly choses between "rock" "paper" or "scissor"  */
-/* PCODE use randomNumber to get a number between 1 and 3 uses that number to choose "rock", "paper", or "scissors" */
 function getRandomChoice() {
     let choiceNumber = calcRandomNumber(3,1)
     switch (true){
@@ -24,10 +23,34 @@ function getRandomChoice() {
             return "error" ;
     }
 }   
-/* Possibly generate
 
 
 /* Function playRPS plays a single round of rock papers scissors expects p1Choice and p2Choice returns p1Choice, p2Choice, and result */
+function playRPS (p1Choice = "", p2Choice = "") {
+    /* Possibly generate, sanitize, and error check p1Choice */
+    if (p1Choice === "") {
+        p1Choice = getRandomChoice() ;
+    }
+    else{
+        p1Choice = p1Choice.toLowerCase() ;
+        if (p1Choice === "rock"|| p1Choice ==="paper"|| p1Choice ==="scissors"){}else{
+            console.error("player 1 must choose rock paper or scissors") ;
+            return "error" ;
+        }
+    }
+    /* Possibly generate, sanitize, and error check p1Choice */
+    if (p2Choice === "") {
+        p2Choice = getRandomChoice() ;
+    }
+    else{
+        p2Choice = p2Choice.toLowerCase() ;
+        if (p2Choice === "rock"|| p2Choice ==="paper"|| p2Choice ==="scissors"){}else{
+            console.error("player 2 must choose rock paper or scissors") ;
+            return "error" ;
+        }
+    }
+    return p1Choice, p2Choice, "test good" ;
+}
 /* PCODE
     
     Possibly generate, sanitize, and error check p1Choice
