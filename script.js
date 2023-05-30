@@ -81,7 +81,7 @@ function game(maxRounds = 1){
     let currentRound = 1 ;
     const winningScore = Math.floor(maxRounds/2) + 1 ;
     while (currentRound < maxRounds+1){
-        let round = new playRPS(prompt("Choose Rock, Paper, or Scissors"),);
+        let round = new playRPS(prompt("Choose Rock, Paper, or Scissors \n If left blank an option will randomly be chosen for you"),);
         if (round.result === "error")/* playRPS results in an error */ {
             console.log(`Looks like there was and error let's play round ${currentRound} again`) ;
             console.log("") ;
@@ -123,10 +123,25 @@ function game(maxRounds = 1){
             console.log("Better luck next time") ;
             console.log("Type game((max number of rounds)) to play again") ;
             return ;
-        } else if (currentRound === maxRounds + 1)/* No winner after last round */{
-            console.log("This game ended in a draw with a score of:") ;
-            console.log(`Player: ${playerScore}`) ;
-            console.log(`Computer: ${computerScore}`) ;
+        } else if (currentRound === maxRounds + 1)/* Last round */{
+            if(playerScore === computerScore)/* Game ends in draw */{
+                console.log("This game ended in a draw with a score of:") ;    
+            } else if( playerScore > computerScore)/*Game ends with player having a higher score*/{
+                console.log(`You have won best out of ${maxRounds} with a score of:`) ;
+            } else/* Game ends with computer having a higher score*/{
+                console.log(`The computer has won best out of ${maxRounds} with a score of:`) ;  
+            }
+            if (playerScore >= computerScore)/* Draw or player wins */{
+                console.log(`Player: ${playerScore}`) ;
+                console.log(`Computer: ${computerScore}`) ;
+                if (playerScore > computerScore)/* Player wins */{
+                    console.log("Congratulations!") ;
+                }
+            } else /* Computer wins */ {
+                console.log(`Computer: ${computerScore}`) ;
+                console.log(`Player: ${playerScore}`) ;
+                console.log("Better luck next time") ;
+            }
             console.log("Type game((max number of rounds)) to play again") ;
             return ;
         } else /*move on to next round */ {
