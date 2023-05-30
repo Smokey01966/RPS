@@ -82,26 +82,26 @@ function game(maxRounds = 1){
     const winningScore = Math.floor(maxRounds/2) + 1 ;
     while (currentRound < maxRounds+1){
         let round = new playRPS(prompt("Choose Rock, Paper, or Scissors"),);
-        if (round.result === "error") {
+        if (round.result === "error")/* playRPS results in an error */ {
             console.log(`Looks like there was and error let's play round ${currentRound} again`) ;
             console.log("") ;
             console.log("") ;
             continue;
-        } else if (round.result ==="player 1 wins"){
+        } else if (round.result ==="player 1 wins")/* player wins round */{
             playerScore++ ;
             console.log(`For round ${currentRound} you chose ${round.p1Choice} and the computer chose ${round.p2Choice}`) ;
             console.log("You win this round") ;
             currentRound++ ;
-        } else if (round.result ==="player 2 wins"){
+        } else if (round.result ==="player 2 wins")/* computer wins round */{
             computerScore++ ;
             console.log(`For round ${currentRound} you chose ${round.p1Choice} and the computer chose ${round.p2Choice}`) ;
             console.log("The computer won this round") ;
             currentRound++ ;
-        } else if (round.result ==="tie"){
+        } else if (round.result ==="tie")/* round is a tie */{
             console.log(`For round ${currentRound} you chose ${round.p1Choice} and the computer chose ${round.p2Choice}`) ;
             console.log("It's a tie") ;
             currentRound++ ;
-        } else {
+        } else/* catch for unexpected result */ {
             console.log("Something went wrong") ;
             console.log("") ;
             console.log("") ;
@@ -129,7 +129,7 @@ function game(maxRounds = 1){
             console.log(`Computer: ${computerScore}`) ;
             console.log("Type game((max number of rounds)) to play again") ;
             return ;
-        } else {
+        } else /*move on to next round */ {
             console.log("The score is:")
             if (playerScore >= computerScore){
                 console.log(`Player: ${playerScore}`) ;
