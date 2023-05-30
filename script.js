@@ -73,3 +73,42 @@ function playRPS (p1Choice = "", p2Choice = "") {
     }
     return{p1Choice, p2Choice, result}
 }
+
+
+/* game function expects number of rounds returns nothing */
+/* Pcode
+declare playerScore as 0
+declare computerScore as 0
+declare current round as 1
+declare constant winningScore as floor maxRounds/2 +1
+for while current round is less than maxRounds + 1
+    let round = playRPS(prompt("Choose Rock, Paper, or Scissors"),)
+    if the result of the round is error
+        consol log looks like there was an error let play round currentRound again
+        break
+    else if the result is player 1 winning 
+        increment player's score by 1 then
+        log to the console for round currentRound you chose round.p1Choice the computer chose round.p2Choice
+        log to the console You win this round
+        increment currentRound by 1
+    else
+        increment computer's score by 1 then
+        log to the console for round currentRound you chose round.p1Choice the computer chose round.p2Choice
+        log to the console The computer won this round
+        increment currentRound by 1
+    Round ends here check for end game
+    if playerScore is equal to winningScore
+        console log You have won best out of maxRounds with a score of player: playerScore computer: computerScore congratulations
+        console log type game((max number of rounds)) to play again
+        return
+    else if computerScore is equal to winningScore
+        console log The computer has won best out of maxRounds with a score of computer: computerScore player: playerScore better luck next time
+        console log type game((max number of rounds)) to play again
+        return
+    else if 
+        current round is === maxRound +1
+        console log this game ended in a draw with a score of player: playerScore computer: computerScore
+        console log type game((max number of rounds)) to play again
+        return
+    else
+        console log your score is playerScore the computer's score is computerScore first to winningScore wins on to round currrentRound
