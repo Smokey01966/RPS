@@ -25,8 +25,9 @@ function getRandomChoice() {
 }   
 
 
-/* Function playRPS plays a single round of rock papers scissors expects p1Choice and p2Choice returns p1Choice, p2Choice, and result */
+/* Function playRPS plays a single" round of rock papers scissors expects p1Choice and p2Choice returns p1Choice, p2Choice, and result */
 function playRPS (p1Choice = "", p2Choice = "") {
+    let result = "error";
     /* Possibly generate, sanitize, and error check p1Choice */
     if (p1Choice === "") {
         p1Choice = getRandomChoice() ;
@@ -38,7 +39,8 @@ function playRPS (p1Choice = "", p2Choice = "") {
             return "error" ;
         }
     }
-    /* Possibly generate, sanitize, and error check p1Choice */
+    
+    /* Possibly generate, sanitize, and error check p2Choice */
     if (p2Choice === "") {
         p2Choice = getRandomChoice() ;
     }
@@ -49,31 +51,25 @@ function playRPS (p1Choice = "", p2Choice = "") {
             return "error" ;
         }
     }
-    return p1Choice, p2Choice, "test good" ;
+
+    /* Determine the result */
+    switch (true) {
+        /* tie case */
+        case (p1Choice === p2Choice) :
+            result = "tie" ;
+            break ;
+        /* Player 1 win cases */
+        case (p1Choice === "rock" && p2Choice === "scissors") :
+        case (p1Choice === "paper" && p2Choice === "rock") :       
+        case (p1Choice === "scissors" && p2Choice === "paper") :  
+            result = "player 1 wins" ;
+            break ;     
+        /* Player 2 win cases */
+        case (p1Choice === "rock" && p2Choice === "paper") :       
+        case (p1Choice === "scissors" && p2Choice === "rock") :       
+        case (p1Choice === "paper" && p2Choice === "scissors") :
+            result = "player 2 wins" ;
+            break ;       
+    }
+    return{p1Choice, p2Choice, result}
 }
-/* PCODE
-    
-    Possibly generate, sanitize, and error check p1Choice
-        if p1Choice is empty set it to getRandomChoice
-        else turn it into lower case
-        if p1Choice is not rock, paper, or scissors, error "player 1 must choose rock paper or scissors." return error
-    
-    Possibly generate, sanitize, and error check p2Choiceg
-        if p2Choice is empty set it to getRandomChoice
-        else turn it into lower case
-        if p2Choice is not rock, paper, or scissors, error "player 2 must choose rock paper or scissors." return error
-    
-    If p1Choice is p2Choice return p1Choice, p2Choice, "tie"
-
-    Switch case with p1Choice and p2Choice
-    p1Choice "rock" and p2Choice "scissors"
-    p1Choice "scissors" and p2Choice "paper"
-    p1Choice "paper" and p2Choice "rock"
-    return p1Choice, p2Choice, "player 1 2ins"
-
-    Switch case with p1Choice and p2Choice
-    p1Choice "rock" and p2Choice "paper"
-    p1Choice "scissors" and p2Choice "rock"
-    p1Choice "paper" and p2Choice "scissors"
-    return p1Choice, p2Choice, "player 2 wins"
-*/
