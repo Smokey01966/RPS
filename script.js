@@ -36,7 +36,7 @@ function playRPS (p1Choice = "", p2Choice = "") {
         p1Choice = p1Choice.toLowerCase() ;
         if (p1Choice === "rock"|| p1Choice ==="paper"|| p1Choice ==="scissors"){}else{
             console.error("player 1 must choose rock paper or scissors") ;
-            return "error" ;
+            return {p1Choice, p2Choice, result:"error"} ;
         }
     }
     
@@ -48,7 +48,7 @@ function playRPS (p1Choice = "", p2Choice = "") {
         p2Choice = p2Choice.toLowerCase() ;
         if (p2Choice === "rock"|| p2Choice ==="paper"|| p2Choice ==="scissors"){}else{
             console.error("player 2 must choose rock paper or scissors") ;
-            return "error" ;
+            return {p1Choice, p2Choice, result:"error"} ;
         }
     }
 
@@ -74,41 +74,73 @@ function playRPS (p1Choice = "", p2Choice = "") {
     return{p1Choice, p2Choice, result}
 }
 
-
-/* game function expects number of rounds returns nothing */
-/* Pcode
-declare playerScore as 0
-declare computerScore as 0
-declare current round as 1
-declare constant winningScore as floor maxRounds/2 +1
-for while current round is less than maxRounds + 1
-    let round = playRPS(prompt("Choose Rock, Paper, or Scissors"),)
-    if the result of the round is error
-        consol log looks like there was an error let play round currentRound again
-        break
-    else if the result is player 1 winning 
-        increment player's score by 1 then
-        log to the console for round currentRound you chose round.p1Choice the computer chose round.p2Choice
-        log to the console You win this round
-        increment currentRound by 1
-    else
-        increment computer's score by 1 then
-        log to the console for round currentRound you chose round.p1Choice the computer chose round.p2Choice
-        log to the console The computer won this round
-        increment currentRound by 1
-    Round ends here check for end game
-    if playerScore is equal to winningScore
-        console log You have won best out of maxRounds with a score of player: playerScore computer: computerScore congratulations
-        console log type game((max number of rounds)) to play again
-        return
-    else if computerScore is equal to winningScore
-        console log The computer has won best out of maxRounds with a score of computer: computerScore player: playerScore better luck next time
-        console log type game((max number of rounds)) to play again
-        return
-    else if 
-        current round is === maxRound +1
-        console log this game ended in a draw with a score of player: playerScore computer: computerScore
-        console log type game((max number of rounds)) to play again
-        return
-    else
-        console log your score is playerScore the computer's score is computerScore first to winningScore wins on to round currrentRound
+/* game function expects number of rounds returns nothing plays rock paper scissors best of number of rounds against a computer opponent */
+function game(maxRounds = 1){
+    let playerScore = 0 ;
+    let computerScore = 0 ;
+    let currentRound = 1 ;
+    const winningScore = Math.floor(maxRounds/2) + 1 ;
+    while (currentRound < maxRounds+1){
+        let round = new playRPS(prompt("Choose Rock, Paper, or Scissors"),);
+        if (round.result === "error") {
+            console.log(`Looks like there was and error let's play round ${currentRound} again`) ;
+            console.log("") ;
+            console.log("") ;
+            continue;
+        } else if (round.result ==="player 1 wins"){
+            playerScore++ ;
+            console.log(`For round ${currentRound} you chose ${round.p1Choice} and the computer chose ${round.p2Choice}`) ;
+            console.log("You win this round") ;
+            currentRound++ ;
+        } else if (round.result ==="player 2 wins"){
+            computerScore++ ;
+            console.log(`For round ${currentRound} you chose ${round.p1Choice} and the computer chose ${round.p2Choice}`) ;
+            console.log("The computer won this round") ;
+            currentRound++ ;
+        } else if (round.result ==="tie"){
+            console.log(`For round ${currentRound} you chose ${round.p1Choice} and the computer chose ${round.p2Choice}`) ;
+            console.log("It's a tie") ;
+            currentRound++ ;
+        } else {
+            console.log("Something went wrong") ;
+            console.log("") ;
+            console.log("") ;
+            continue ;
+        }
+        
+        /* round ends check for endgame */
+        if (playerScore === winningScore)/* Player reaches winning score */{ 
+            console.log(`You have won best out of ${maxRounds} with a score of:`) ;
+            console.log(`Player: ${playerScore}`) ;
+            console.log(`Computer: ${computerScore}`) ;
+            console.log("Congratulations!") ;
+            console.log("Type game((max number of rounds)) to play again") ;
+            return ;
+        } else if (computerScore === winningScore)/* Computer reaches winning score */ {
+            console.log(`The computer has won best out of ${maxRounds} with a score of:`) ;
+            console.log(`Computer: ${computerScore}`) ;
+            console.log(`Player: ${playerScore}`) ;
+            console.log("Better luck next time") ;
+            console.log("Type game((max number of rounds)) to play again") ;
+            return ;
+        } else if (currentRound === maxRounds + 1)/* No winner after last round */{
+            console.log("This game ended in a draw with a score of:") ;
+            console.log(`Player: ${playerScore}`) ;
+            console.log(`Computer: ${computerScore}`) ;
+            console.log("Type game((max number of rounds)) to play again") ;
+            return ;
+        } else {
+            console.log("The score is:")
+            if (playerScore >= computerScore){
+                console.log(`Player: ${playerScore}`) ;
+                console.log(`Computer: ${computerScore}`) ;
+            } else {
+                console.log(`Computer: ${computerScore}`) ;
+                console.log(`Player: ${playerScore}`) ;
+            }
+            console.log(`On to round ${currentRound}`) ;
+            console.log("") ;
+            console.log("") ;
+        }
+    }
+}
